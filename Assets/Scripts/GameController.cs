@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class PlayerCollect : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int score = 0;
+    public UnityEngine.UI.Text scoreText;
+
+    void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.CompareTag("Coin"))
+        {
+            score++;
+            Destroy(other.gameObject);
+            UpdateScoreUI();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void UpdateScoreUI()
     {
-        
+        if (scoreText != null)
+            scoreText.text = "Score: " + score;
     }
 }
