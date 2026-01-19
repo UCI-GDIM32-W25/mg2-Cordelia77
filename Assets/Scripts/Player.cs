@@ -12,14 +12,12 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);
-
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);

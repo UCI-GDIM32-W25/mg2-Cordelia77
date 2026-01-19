@@ -1,10 +1,15 @@
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 public class PlayerCollect : MonoBehaviour
 {
     public int score = 0;
-    public UnityEngine.UI.Text scoreText;
+    public TMP_Text scoreText;
 
+    void Start()
+    {
+        UpdateScoreUI();
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
