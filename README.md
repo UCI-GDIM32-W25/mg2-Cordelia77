@@ -5,9 +5,9 @@ In my MG2 breakdown, I roughly divided the player, coin, ground, and UI, as well
 
 **Player Object:** My `Player.cs` script implements the player's jump capability through `jumpForce = 8f` and the `isGrounded` boolean. The Jump [Space] action in `Update()` uses `Input.GetKeyDown(KeyCode.Space) && isGrounded`, then executes `rb.velocity = new Vector2(rb.velocity.x, jumpForce)` for vertical movement.
 
-(To ensure the player could only jump when grounded, I carefully managed the `isGrounded` flag. It's set to `true` in `OnCollisionEnter2D()` when colliding with objects tagged "Ground", and would remain true until leaving ground contact. This strict check prevents mid-air jumping as required by the assignment.)
+(To ensure the player could only jump when grounded, I carefully managed the `isGrounded` flag. It's set to `true` in `OnCollisionEnter2D()` when colliding with objects tagged "Ground", and would remain true until leaving ground contact. This strict check prevents mid-air jumping as required by the assignment, the characteristics of the sample case.)
 
-I also implemented `rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation` in Start() to lock the player's horizontal position, focusing gameplay on precise jump timing.<br><br>
+I also implemented `rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation` in Start() to lock the player's horizontal position, in this way, the player can only jump (up and down).<br><br>
 
 
 **Coin Object:** The Coin's movement is handled by `CoinMovement.cs` with `moveSpeed = 3f`. Each frame, Update() calls `transform.Translate(-moveSpeed * Time.deltaTime, 0, 0)` for consistent leftward motion at 3 units per second. To prevent memory issues in infinite gameplay, coins automatically destroy themselves when `transform.position.x < -25f` using `Destroy(gameObject)`.
@@ -20,7 +20,7 @@ I also implemented `rb.constraints = RigidbodyConstraints2D.FreezePositionX | Ri
 
 **Coin Spawner:** The `CoinSpawner.cs` script creates coins at irregular intervals using `Random.Range(0.5f, 2.0f)` within the SpawnCoins() coroutine. Each coin spawns at fixed coordinates `new Vector2(15f, 1.5f)` via `Instantiate(coinPrefab, spawnPosition, Quaternion.identity)`. The 'while (true)' loop with `yield return new WaitForSeconds(waitTime)` ensures continuous generation for infinite gameplay.
 
-(I started with an immediate SpawnCoin() call before entering the infinite loop to give players an early coin target. The random interval between 0.5-2.0 seconds creates the "not-perfectly-regular" pattern specified in the requirements.)
+(I started with an immediate SpawnCoin() call before entering the infinite loop to give players an early coin target. The random interval between 0.5-2.0 seconds creates the "not-perfectly-regular" pattern specified in the requirements. *Although I'm not entirely sure if it has been successfully effective... However, the final outcome met my requirements.*)
 
 
 ## Open-Source Assets
